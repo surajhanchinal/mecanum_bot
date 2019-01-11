@@ -2,7 +2,8 @@
 import rospy
 from std_msgs.msg import Float32
 import sys, select, termios, tty
-
+import geometry_msgs
+import nav_msgs
 def getKey():
 	tty.setraw(sys.stdin.fileno())
 	select.select([sys.stdin], [], [], 0)
@@ -15,10 +16,17 @@ fl_pub = rospy.Publisher("front_left", Float32)
 fr_pub = rospy.Publisher("front_right", Float32)
 bl_pub = rospy.Publisher("back_left", Float32)
 br_pub = rospy.Publisher("back_right", Float32)
+cmd_vel = rospy.Publisher("cmd_vel", geometry_msgs.msg.Twist)
+yaw = rospy.Subscriber("odom",nav_msgs.msg.Odometry,set_yaw)
 
 r = rospy.Rate(50)
 c = 0
 settings = termios.tcgetattr(sys.stdin)
+
+yaw = 0
+
+def set_yaw(msg):
+    pass
 
 while not rospy.is_shutdown():
     try:

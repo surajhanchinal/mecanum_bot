@@ -33,6 +33,7 @@ namespace gazebo
       mfr_sub = mRosnode->subscribe("front_right",10,&Mecanum::fr_cb, this);
       mbl_sub = mRosnode->subscribe("back_left",10,&Mecanum::bl_cb, this);
       mbr_sub = mRosnode->subscribe("back_right",10,&Mecanum::br_cb, this);
+      cmd_vel = mRosnode->subscribe("cmd_vel",10,&Mecanum::set_vel, this);
 
 
       // Listen to the update event. This event is broadcast every
@@ -54,19 +55,28 @@ namespace gazebo
         math::Pose pose = this->model->GetWorldPose();
         float yaw = pose.rot.GetYaw();
         geometry_msgs::Twist msg;
-        msg.linear.x = x * cosf(yaw) - y * sinf(yaw);
+        /* msg.linear.x = x * cosf(yaw) - y * sinf(yaw);
         msg.linear.y = y * cosf(yaw) + x * sinf(yaw);
         msg.linear.z = 0;
         msg.angular.x = 0;
         msg.angular.y = 0;
-        msg.angular.z = rot;
+        msg.angular.z = rot; */
+        msg.linear.x = linear_vel.x;
+        msg.linear.y = linear_vel.y;
+        msg.linear.z = linear_vel.z;
+        msg.angular.x = angular_vel.x;
+        msg.angular.y = angular_vel.y;
+        msg.angular.z = angular_vel.z;
         velocity_pub.publish(msg);
         
-        this->model->SetLinearVel(math::Vector3(
+        /* this->model->SetLinearVel(math::Vector3(
           x * cosf(yaw) - y * sinf(yaw),
           y * cosf(yaw) + x * sinf(yaw),
           0));
-        this->model->SetAngularVel(math::Vector3(0, 0, rot));
+        this->model->SetAngularVel(math::Vector3(0, 0, rot)); */
+        this->model->SetLinearVel(linear_vel);
+        this->model->SetAngularVel(angular_vel);
+
         
         }
 
@@ -86,6 +96,12 @@ namespace gazebo
         {
           mbr = cmd_msg->data;
         }
+        public: void set_vel(const geometry_msgs::Twist::ConstPtr & twist_msg)
+        {
+          linear_vel = math::Vector3(twist_msg->linear.x,twist_msg->linear.y,twist_msg->linear.z);
+          angular_vel = math::Vector3(twist_msg->angular.x,twist_msg->angular.y,twist_msg->angular.z);
+
+        }
 
       private:
         // Pointer to the model
@@ -100,11 +116,15 @@ namespace gazebo
         float mfr;
         float mbl;
         float mbr;
+        math::Vector3 linear_vel;
+        math::Vector3 angular_vel;
         ros::Publisher velocity_pub;
         ros::Subscriber mfl_sub;
         ros::Subscriber mfr_sub;
         ros::Subscriber mbl_sub;
         ros::Subscriber mbr_sub;
+        ros::Subscriber cmd_vel;
+
       };
 
       // Register this plugin with the simulator
