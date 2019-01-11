@@ -8,7 +8,7 @@ import tf2_ros
 import tf_conversions
 rospy.init_node("odom_pub")
 
-odom_pub =  rospy.Publisher('/my_odom',Odometry)
+odom_pub =  rospy.Publisher('/odom',Odometry)
 
 rospy.wait_for_service('/gazebo/get_model_state')
 
