@@ -32,7 +32,7 @@ int main(int argc, char** argv){
   current_time = ros::Time::now();
   last_time = ros::Time::now();
 
-  ros::Rate r(1.0);
+  ros::Rate r(10.0);
   while(n.ok()){
 
     ros::spinOnce();               // check for incoming messages
@@ -53,7 +53,7 @@ int main(int argc, char** argv){
 
     //first, we'll publish the transform over tf
     geometry_msgs::TransformStamped odom_trans;
-    odom_trans.header.stamp = sim_clock;
+    odom_trans.header.stamp = current_time;
     odom_trans.header.frame_id = "odom";
     odom_trans.child_frame_id = "base_link";
 
