@@ -28,7 +28,7 @@ namespace gazebo
       mfr = 0;
 
       mRosnode.reset(new ros::NodeHandle(""));
-      //velocity_pub = mRosnode->advertise<geometry_msgs::Twist>("velocity", 1000);
+      velocity_pub = mRosnode->advertise<geometry_msgs::Twist>("velocity", 1000);
       mfl_sub = mRosnode->subscribe("front_left",10,&Mecanum::fl_cb, this);
       mfr_sub = mRosnode->subscribe("front_right",10,&Mecanum::fr_cb, this);
       mbl_sub = mRosnode->subscribe("back_left",10,&Mecanum::bl_cb, this);
@@ -61,13 +61,13 @@ namespace gazebo
         msg.angular.x = 0;
         msg.angular.y = 0;
         msg.angular.z = rot; */
-        msg.linear.x = linear_vel.x;
-        msg.linear.y = linear_vel.y;
-        msg.linear.z = linear_vel.z;
-        msg.angular.x = angular_vel.x;
-        msg.angular.y = angular_vel.y;
+        msg.linear.x = linear_vel.x*cosf(yaw) - linear_vel.y*sinf(yaw);
+        msg.linear.y = linear_vel.y*cosf(yaw) + linear_vel.x*sinf(yaw);
+        msg.linear.z = 0;
+        msg.angular.x = 0;
+        msg.angular.y = 0;
         msg.angular.z = angular_vel.z;
-        //velocity_pub.publish(msg);
+        velocity_pub.publish(msg);
         
         /* this->model->SetLinearVel(math::Vector3(
           x * cosf(yaw) - y * sinf(yaw),
