@@ -3,7 +3,7 @@
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="false"/>
   <arg name="gui" default="true"/>
-  <arg name="headless" default="false"/>
+  <arg name="headless" default="true"/>
   <arg name="debug" default="false"/>
   <arg name="verbose" default="false"/>
 <!--   <arg name="world_name" default="worlds/empty.world"/>
