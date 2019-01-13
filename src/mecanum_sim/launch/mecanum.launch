@@ -47,4 +47,6 @@
     type="state_publisher" args = "-param robot_description" respawn="false" output="screen">
 
   </node>
+  <include file="$(find mecanum_sim)/launch/amcl_demo.launch"/>
+
 </launch>
