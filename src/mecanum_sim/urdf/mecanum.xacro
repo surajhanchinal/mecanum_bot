@@ -14,7 +14,7 @@
   <xacro:property name="wheel_setback" value="0.041275" />    <!-- 1 5/8 in  -->
   <xacro:property name="lidar_width" value="0.0508" />    <!-- 2.0 in  -->
   <xacro:property name="lidar_length" value="0.0508" />    <!-- 2.0 in  -->
-  <xacro:property name="lidar_height" value="0.0762" />    <!-- 3.0 in  -->
+  <xacro:property name="lidar_height" value="0.1400" />    <!-- 3.0 in  -->
   <xacro:property name="lidar_setback" value="0.0127" />    <!-- 0.5 in  -->
 
 
