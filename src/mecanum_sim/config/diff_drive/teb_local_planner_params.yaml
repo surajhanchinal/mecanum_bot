@@ -33,7 +33,7 @@ TebLocalPlannerROS:
     
  # Obstacles
     
- min_obstacle_dist: 0.5 # This value must also include our robot radius, since footprint_model is set to "point".
+ min_obstacle_dist: 0.40 # This value must also include our robot radius, since footprint_model is set to "point".
  include_costmap_obstacles: True
  costmap_obstacles_behind_robot_dist: 1.5
  obstacle_poses_affected: 30
@@ -56,7 +56,7 @@ TebLocalPlannerROS:
  weight_kinematics_forward_drive: 1
  weight_kinematics_turning_radius: 1
  weight_optimaltime: 1
- weight_obstacle: 50
+ weight_obstacle: 100
  weight_dynamic_obstacle: 10 # not in use yet
  weight_adapt_factor: 2
 
