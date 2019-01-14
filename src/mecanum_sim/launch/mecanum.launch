@@ -48,5 +48,5 @@
 
   </node>
   <include file="$(find mecanum_sim)/launch/amcl_demo.launch"/>
-
+  <node type="rviz" name="rviz" pkg="rviz"/>
 </launch>
