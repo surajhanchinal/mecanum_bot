@@ -33,9 +33,9 @@
     <remap from="cmd_vel" to="cmd_vel"/>
     <remap from="odom" to="odom"/>
     <!-- <remap from="scan" to="/laser/scan"/> -->
-    <param name="move_base/DWAPlannerROS/yaw_goal_tolerance" value="0.2"/>
-    <param name="move_base/DWAPlannerROS/xy_goal_tolerance" value="0.2"/>
-
+    <!-- <param name="move_base/DWAPlannerROS/yaw_goal_tolerance" value="0.2"/>
+    <param name="move_base/DWAPlannerROS/xy_goal_tolerance" value="0.2"/> -->
+    <param name="controller_frequency" value="4.0" />
 
 
   </node>
